@@ -4,9 +4,10 @@ import 'grapesjs/dist/css/grapes.min.css';
 import preset from "../plugins/preset";
 import basic from "../plugins/basic";
 
+
 function Canva() {
     useEffect(() => {
-        var editor =  grapesjs.init({
+         window.editor =  grapesjs.init({
      canvas: {
        // hls para streaming
        scripts: ['https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js'],
@@ -24,64 +25,105 @@ function Canva() {
 //Se puede arrastrar en modo absoluto a todos los componentes
 editor.getModel().set('dmode','absolute')
 
-    //add dimentions
-// const styleManager = editor.StyleManager;
+   //hide devices
+   editor.getConfig().showDevices = false;
 
-// styleManager.addSector('mySector',{
-//     name: 'My sector',
-//     open: true,
-//     properties: [{ name: 'My property'}]
-//   }, { at: 0 });
-    // wrapper element
-  
+// custom video block
+const script = function(){
+  var video =  document.querySelector('.streaming');
+  var videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+  if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+  }
+
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+  }
+}
 
 
-    editor.Components.addType('wrapper', {
-        model: {
-          styleManager:{
-            name: 'General',
-            open: true,
-            buildProps: ['width', 'flex-width', 'height', 'max-width', 'min-height', 'margin', 'padding'],
-          },
-          defaults: {
-            // stylable: ['width', 'height'],
-            tagName: 'section',
-            stylable: [
-                    // Default attributes
-                    'background',
-                    'background-color',
-                    'background-image',
-                    'background-repeat',
-                    'background-attachment',
-                    'background-position',
-                    'background-size',
-  
-                    // Add the "Dimension" sector attributes
-                    'width',
-                    'height',
-                    'max-width',
-                    'min-height',
-                    'margin',
-                    'margin-top',
-                    'margin-right',
-                    'margin-bottom',
-                    'margin-left',
-                    'padding',
-                    'padding-top',
-                    'padding-right',
-                    'padding-bottom',
-                    'padding-left'
-                ]
-          },
-  
-        }})
+const { DomComponents, Blocks } = editor;
+
+DomComponents.addType("custom-video", {
+    extend: "video",
+    extendFn: ['init'],
+    view: {
+      // events: {
+      //   dblclick: "handleDblClick"
+      // },
+      // handleDblClick() {
+      //   alert("Hola mundo");
+      // },
+    },
+    model: {
+      defaults: {
+        tagName: 'video',
+        script,
+        attributes: { class: 'streaming'},
+      },
 
 
 
+    },
+  });
+
+
+  const dc = editor.DomComponents;
+  dc.addType('custom-video', {
+    extendFn: ['updateTraits'],
+    model: {
+      init() {
+        this.addMutedTrait();
+      },
+
+      updateTraits() {
+        this.addMutedTrait();
+      },
+
+      addMutedTrait() {
+        if (!this.getTrait('muted')) {
+          this.addTrait({
+            type: 'checkbox',
+            name: 'muted',
+          })
+          this.addTrait({
+            type: 'text',
+            name: 'id',
+          })
+          // this.addAttributes({ 'type': 'application/vnd.apple.mpegurl' });
+          // this.addTrait(
+          //  [
+          //     {
+          //         type: 'select',
+          //         options: [
+          //             { value: 'video', name: 'NO streaming' },
+          //             { value: 'video-js', name: 'streaming' },
+          //         ],
+          //         label: 'Size',
+          //         name: 'tagName',
+          //         changeProp: 1,
+          //     },
+          // ],
+          // )
+        }
+      },
+    },
+  })
+//add video block
+  Blocks.add("Video", {
+    label: "Video HLS",
+    attributes: { class: "fa fa-youtube-play" },
+    content: {
+      type: "custom-video"
+    }
+  });
 
 
 
     //animations
+
 
     const def = editor.Components.getType("default");
 
@@ -243,7 +285,6 @@ editor.getModel().set('dmode','absolute')
             view: thisComp.view,
         });
     }
-
 
 
 

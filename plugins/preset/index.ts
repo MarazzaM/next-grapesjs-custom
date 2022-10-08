@@ -79,7 +79,7 @@ const preset: grapesjs.Plugin<PluginOptions> = (editor, opts: Partial<PluginOpti
     modalImportLabel: '',
     modalImportContent: '',
     importViewerOptions: {},
-    textCleanCanvas: 'Are you sure you want to clear the canvas?',
+    textCleanCanvas: 'Estás seguro que querés limpiar el canvas?',
     showStylesOnChange: true,
     useCustomTheme: true,
     ...opts,
@@ -87,7 +87,7 @@ const preset: grapesjs.Plugin<PluginOptions> = (editor, opts: Partial<PluginOpti
 
   if (config.useCustomTheme && typeof window !== 'undefined') {
     const primaryColor = 'rgb(17, 25, 42)';
-    const secondaryColor = '#b9a5a6';
+    const secondaryColor = '#f6f6f6';
     const tertiaryColor = '#804f7b';
     const quaternaryColor = '#d97aa6';
     const prefix = 'gjs-';

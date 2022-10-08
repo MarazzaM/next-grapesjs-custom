@@ -1,13 +1,11 @@
 import React from 'react'
-// import Canva from '../components/Canva'
-import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
- const Canva = dynamic(() => import('../components/Canva'), {
-   ssr: false,
- })
 function index() {
   return (
-    <div><Canva /></div>
+    <div>Ir al 
+      <Link href='/Testing'> Editor</Link>
+       </div>
   )
 }
 
