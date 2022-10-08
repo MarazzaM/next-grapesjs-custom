@@ -3,7 +3,7 @@ import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import preset from "../plugins/preset";
 import basic from "../plugins/basic";
-
+import es from 'grapesjs/src/i18n/locale/es'
 
 function Canva() {
     useEffect(() => {
@@ -24,6 +24,12 @@ function Canva() {
             autoload: true, // Autoload stored data on init
             stepsBeforeSave: 10, // If autosave is enabled, indicates how many changes are necessary before the store method is triggered
           },
+          i18n: {
+            locale: 'es', // default locale
+           // detectLocale: true, // by default, the editor will detect the language
+           // localeFallback: 'en', // default fallback
+           messages: { es },
+         },
       })
 //Se puede arrastrar en modo absoluto a todos los componentes
 editor.getModel().set('dmode','absolute')
@@ -141,7 +147,7 @@ DomComponents.addType("custom-video", {
             model: ({
                 defaults: {
                     ...thisComp.model.prototype.defaults,
-                    copyable: false,
+                    copyable: true,
                     traits:[
                         ...def.model.prototype.defaults.traits,
                         ...[{
