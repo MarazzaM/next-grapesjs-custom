@@ -34,13 +34,14 @@ function Canva() {
 //Se puede arrastrar en modo absoluto a todos los componentes
 editor.getModel().set('dmode','absolute')
 
-
+//boton para guardar
 editor.Panels.addButton('options', [ 
   { id: 'save', className: 'fa fa-floppy-o icon-blank', 
   command:() => { editor.store() }, 
   attributes: { title: 'Guardar' } }, ]);
 
 // custom video block
+//script que ejecuta el video
 const script = function(){
   var video =  document.querySelector('.streaming');
   var videoSrc = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
@@ -55,7 +56,7 @@ const script = function(){
   }
 }
 
-
+//elemento de video
 const { DomComponents, Blocks } = editor;
 
 DomComponents.addType("custom-video", {
@@ -80,7 +81,6 @@ DomComponents.addType("custom-video", {
 
     },
   });
-
 
   const dc = editor.DomComponents;
   dc.addType('custom-video', {
@@ -135,7 +135,9 @@ DomComponents.addType("custom-video", {
 
 
 
-    //animations
+    
+  
+  //animations
 
 
     const def = editor.Components.getType("default");
@@ -305,7 +307,48 @@ DomComponents.addType("custom-video", {
             view: thisComp.view,
         });
     }
+    //wrapper
 
+
+    editor.Components.addType('wrapper', {
+      model: {
+        styleManager:{
+          name: 'Decorations',
+          open: false,
+          buildProps: ['width', 'flex-width', 'height', 'max-width', 'min-height', 'margin', 'padding'],
+        },
+        defaults: {
+          // stylable: ['width', 'height'],
+          tagName: 'section',
+          stylable: [
+                  // Default attributes
+                  'background',
+                  'background-color',
+                  'background-image',
+                  'background-repeat',
+                  'background-attachment',
+                  'background-position',
+                  'background-size',
+
+                  // Add the "Dimension" sector attributes
+                  'width',
+                  'height',
+                  'max-width',
+                  'min-height',
+                  'margin',
+                  'margin-top',
+                  'margin-right',
+                  'margin-bottom',
+                  'margin-left',
+                  'padding',
+                  'padding-top',
+                  'padding-right',
+                  'padding-bottom',
+                  'padding-left'
+              ]
+        },
+
+      }})
 
 
     },[])
