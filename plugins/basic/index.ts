@@ -109,7 +109,7 @@ const basic: grapesjs.Plugin<PluginOptions> = (editor, opts = {}) => {
     flexGrid: false,
     stylePrefix: 'gjs-',
     addBasicStyle: true,
-    category: 'Basic',
+    category: 'Basicos',
     labelColumn1: '1 Column',
     labelColumn2: '2 Columns',
     labelColumn3: '3 Columns',

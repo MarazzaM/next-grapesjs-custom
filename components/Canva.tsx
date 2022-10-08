@@ -56,12 +56,12 @@ DomComponents.addType("custom-video", {
     extend: "video",
     extendFn: ['init'],
     view: {
-      events: {
-        dblclick: "handleDblClick"
-      },
-      handleDblClick() {
-        alert("Hola mundo");
-      },
+      // events: {
+      //   dblclick: "handleDblClick"
+      // },
+      // handleDblClick() {
+      //   alert("Hola mundo");
+      // },
     },
     model: {
       defaults: {
@@ -120,6 +120,7 @@ DomComponents.addType("custom-video", {
 //add video block
   Blocks.add("Video", {
     label: "Video HLS",
+    category: 'Avanzado',
     attributes: { class: "fa fa-youtube-play" },
     content: {
       type: "custom-video"
