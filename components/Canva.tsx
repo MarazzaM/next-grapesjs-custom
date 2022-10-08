@@ -7,7 +7,7 @@ import basic from "../plugins/basic";
 
 function Canva() {
     useEffect(() => {
-         window.editor =  grapesjs.init({
+        var editor =  grapesjs.init({
      canvas: {
        // hls para streaming
        scripts: ['https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js'],
@@ -20,13 +20,19 @@ function Canva() {
         plugins: [preset,basic ],
         storageManager: {
             type: 'local',
+            autosave: true, // Store data automatically
+            autoload: true, // Autoload stored data on init
+            stepsBeforeSave: 10, // If autosave is enabled, indicates how many changes are necessary before the store method is triggered
           },
       })
 //Se puede arrastrar en modo absoluto a todos los componentes
 editor.getModel().set('dmode','absolute')
 
-   //hide devices
-   editor.getConfig().showDevices = false;
+
+editor.Panels.addButton('options', [ 
+  { id: 'save', className: 'fa fa-floppy-o icon-blank', 
+  command:() => { editor.store() }, 
+  attributes: { title: 'Guardar' } }, ]);
 
 // custom video block
 const script = function(){
@@ -50,12 +56,12 @@ DomComponents.addType("custom-video", {
     extend: "video",
     extendFn: ['init'],
     view: {
-      // events: {
-      //   dblclick: "handleDblClick"
-      // },
-      // handleDblClick() {
-      //   alert("Hola mundo");
-      // },
+      events: {
+        dblclick: "handleDblClick"
+      },
+      handleDblClick() {
+        alert("Hola mundo");
+      },
     },
     model: {
       defaults: {

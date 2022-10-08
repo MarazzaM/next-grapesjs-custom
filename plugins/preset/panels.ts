@@ -21,7 +21,6 @@ export default (editor: grapesjs.Editor, opts: RequiredPluginOptions) => {
   const ful = 'fullscreen';
   const prv = 'preview';
   const iconStyle = 'style="display: block; max-width:22px;"';
-  const url = process.env.URL
   // @ts-ignore
   config.showDevices = false;
 
