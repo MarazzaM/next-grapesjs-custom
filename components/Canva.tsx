@@ -351,6 +351,30 @@ DomComponents.addType("custom-video", {
       }})
 
 
+      // editor.DomComponents.getTypes().map(type => {
+
+      //   editor.DomComponents.addType(type.id, {
+    
+      //     model: {
+      //       defaults: {
+    
+      //         traits: [
+      //           ...DomComponents.getType(type.id).model.prototype.defaults.traits,
+      //           {
+      //             label: 'Ancho',
+      //             name: 'width',
+      //             type: 'number'
+      //           }
+      //         ]
+      //       }
+      //     }
+    
+      //   })
+      // });
+
+
+      
+
     },[])
    
     return (
