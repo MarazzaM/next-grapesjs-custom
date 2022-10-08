@@ -148,12 +148,16 @@ DomComponents.addType("custom-video", {
                 defaults: {
                     ...thisComp.model.prototype.defaults,
                     copyable: true,
+                    animation: 'none',
+                    duration:0,
+                    delay:0,
+                    infinite:'1',
                     traits:[
                         ...def.model.prototype.defaults.traits,
                         ...[{
                                changeProp: 1,
                                type: "select",
-                               label: "Animation",
+                               label: "Animacion",
                                name: "animation",
                                options:[
                                 {value: 'none',name: 'Sin animación'},
@@ -254,12 +258,14 @@ DomComponents.addType("custom-video", {
                          }, {
                                changeProp: 1,
                                type: "number",
-                               label: "Duration(s)",
+                               label: "Duracion(s)",
                                name: "duration",
+                               placeholder: '0',
+
                          }, {
                                changeProp: 1,
                                type: "number",
-                               label: "Delay(s)",
+                               label: "Retraso(s)",
                                name: "delay",
                          },
                          {
@@ -284,10 +290,11 @@ DomComponents.addType("custom-video", {
                 //  this.on("change:height", this.onAnimationChange);
               },
               onAnimationChange() {
-                 const animation = this.get("animation");
-                 const duration = this.get("duration");
-                 const delay = this.get("delay");
-                 const infinite = this.get("infinite");
+
+                 let animation = this.get("animation");
+                 let duration = this.get("duration");
+                 let delay = this.get("delay");
+                 let infinite = this.get("infinite");
                 //  const width = this.get("width");
                 //  const height = this.get("height");
                 //  this.addStyle({ "width": `${width}px` });
